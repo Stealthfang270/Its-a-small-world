@@ -60,8 +60,11 @@ public class PlayerSizeManager : MonoBehaviour
             }
             if (canScale)
             {
+                EventManager.toggle.Invoke();
                 isBig = !isBig;
                 targetScale = isBig ? bigScale : smallScale;
+                if(isBig) { EventManager.growBig.Invoke(); }
+                if(!isBig) { EventManager.growSmall.Invoke(); }
                 lerpFloat = 0f;
                 oldScale = transform.localScale;
             }
