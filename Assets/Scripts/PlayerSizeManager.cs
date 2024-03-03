@@ -48,7 +48,7 @@ public class PlayerSizeManager : MonoBehaviour
             lerpFloat = Mathf.Clamp01(lerpFloat + Time.deltaTime / scaleTime + 0.001f);
 
             transform.localScale = Vector3.Lerp(oldScale, targetScale, lerpFloat);
-            cam.orthographicSize = 1 + transform.localScale.x * 4;
+            cam.orthographicSize = 1.3f + transform.localScale.x * 4;
         }
 
         if (switchAction.WasPressedThisFrame())
