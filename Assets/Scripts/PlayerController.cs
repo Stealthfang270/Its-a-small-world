@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 respawnLocation;
     public GameObject square;
     public Camera cam;
+    public AudioSource src;
 
     public Animator animator;
 
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         transform.position = respawnLocation;
+        src.Play();
     }
 
     void SetRespawnLocation(Vector2 pos)
