@@ -210,7 +210,7 @@ MonoBehaviour:
   groundDist: 1.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 823
+    m_Bits: 819
   respawnLocation: {x: 0, y: 0}
   square: {fileID: 4810099046311691133}
   cam: {fileID: 0}
@@ -293,7 +293,7 @@ MonoBehaviour:
   scaleUpDist: 1
   groundMask:
     serializedVersion: 2
-    m_Bits: 823
+    m_Bits: 819
   isBig: 1
   switchAction:
     m_Name: Switch
