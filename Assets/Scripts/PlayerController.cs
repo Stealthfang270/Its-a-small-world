@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public float groundDist;
     public LayerMask groundMask;
     public Vector2 respawnLocation;
+    public GameObject square;
+    public Camera cam;
+
+    public Animator animator;
 
     //Components
     Rigidbody2D rb;
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         EventManager.playerDeath.AddListener(Perish);
         EventManager.setPlayerRespawnLocation.AddListener(SetRespawnLocation);
+        cam = Camera.main;
     }
 
     private void Update()
@@ -37,11 +42,22 @@ public class PlayerController : MonoBehaviour
         jumpVal = jumpAction.IsPressed();
 
         onGround = Physics2D.Raycast(transform.position, Vector2.down, groundDist, groundMask);
+
+        animator.SetBool("onGround", onGround);
+
+        if (moveAction.WasPressedThisFrame() && moveVal < 0)
+        {
+            square.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (moveAction.WasPressedThisFrame() && moveVal > 0)
+        {
+            square.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        if(jumpVal && onGround)
+        if (jumpVal && onGround)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
@@ -51,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxVelocity, maxVelocity), rb.velocity.y);
 
-        if(moveVal == 0)
+        if (moveVal == 0)
         {
             rb.velocity = new Vector2(rb.velocity.x / 1.1f, rb.velocity.y);
         }
