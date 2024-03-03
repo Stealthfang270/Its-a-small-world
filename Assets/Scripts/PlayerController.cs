@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public bool onGround;
     public float groundDist;
     public LayerMask groundMask;
+    public Vector2 respawnLocation;
 
     //Components
     Rigidbody2D rb;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        EventManager.playerDeath.AddListener(Perish);
+        EventManager.setPlayerRespawnLocation.AddListener(SetRespawnLocation);
     }
 
     private void Update()
@@ -52,6 +55,17 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x / 1.1f, rb.velocity.y);
         }
+    }
+
+    void Perish()
+    {
+        rb.velocity = Vector2.zero;
+        transform.position = respawnLocation;
+    }
+
+    void SetRespawnLocation(Vector2 pos)
+    {
+        respawnLocation = pos;
     }
 
     #region Enable and Disable Inputs
